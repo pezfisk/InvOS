@@ -11,12 +11,15 @@ mod vga_buffer;
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "!");
-    println!("really nice i can just println! and it just works!");
 
-    serial_println!("And this prints through serial!");
+    InvOS::init();
+
+    x86_64::instructions::interrupts::int3();
 
     #[cfg(test)]
     test_main();
+
+    println!("It did not crash!");
 
     loop {}
 }
